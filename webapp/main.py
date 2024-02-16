@@ -49,10 +49,10 @@ async def main():
 
             with ui.row().classes('w-full'):
                 form_option = ui.radio(form_categories, value = "Other")
-                with ui.column().classes('w-full'):
-                    form_text = ui.textarea(label='Describe your request in detail').props('rounded outlined clearable').classes('flex-grow w-full')
-                with ui.column().classes('w-full'):
-                    ui.button(text="Request Assistance", color="blue", on_click=lambda: create_request(form_text.value, form_option.value)).style('font-size: 22px;')
+                with ui.row().classes('w-full'):
+                    form_text = ui.textarea(label='Describe your request in detail').props('rounded outlined clearable').classes('w-full')
+                with ui.row().classes('w-full place-content-center'):
+                    ui.button(text="Request Assistance", color="blue", on_click=lambda: create_request(form_text.value, form_option.value)).style('font-size: 16px;')
 
 chat.create(requests)
 resources.create()

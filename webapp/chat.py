@@ -9,7 +9,6 @@ def create(requests):
         ui.page_title(description)
         ui.timer(1.0, lambda: chat_message_area.refresh())
 
-
         def record_chat_message(chat_field):
             timestamp = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
             requests[request_id]['messages'].append((user_type, chat_field.value, timestamp))
