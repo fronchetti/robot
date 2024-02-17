@@ -34,11 +34,13 @@ def create():
 
                 ui.html('On the teaching pendant, click on the Help (?) button and select the Manual option to access the documentation:')
                 ui.image('pendant.jpg')
-                ui.html('Or refer to the document below:')
+                ui.html('Or refer to the documents below:')
 
-                with ui.row().classes('w-full p-2 rounded items-center place-content-center').style('background-color: #dbdbdb;'):
+                with ui.row().classes('w-full p-2 rounded items-center place-content-center').style('background-color: #dbdbdb;').on('click', lambda: ui.open('https://search.abb.com/library/Download.aspx?DocumentID=3HAC073766&LanguageCode=en&DocumentPartId=&Action=Launch')):
+                    ui.markdown('Description: Experimental Task')
+
+                with ui.row().classes('w-full p-2 rounded items-center place-content-center').style('background-color: #dbdbdb;').on('click', lambda: ui.open('https://search.abb.com/library/Download.aspx?DocumentID=3HAC073766&LanguageCode=en&DocumentPartId=&Action=Launch')):
                     ui.markdown('Application Manual: Wizard Easy Programming')
-                # ui.link(text='Application Manual - Wizard Easy Programming', target='https://search.abb.com/library/Download.aspx?DocumentID=3HAC073766&LanguageCode=en&DocumentPartId=&Action=Launch')
 
             with ui.row().classes('w-3/12 p-5').style('background-color: #e8e8e8; border-radius: 16px;'):
                 with ui.row().classes('w-full').style('font-size: 36px; font-weight: bold;'):
@@ -46,31 +48,31 @@ def create():
 
                 ui.html('Click in one of the videos below to start watching:')
 
-                with ui.row().classes('w-full p-2 rounded items-center').style('background-color: #dbdbdb;'):
+                with ui.row().classes('w-full p-2 rounded items-center').style('background-color: #dbdbdb;').on('click', lambda: ui.open('https://www.youtube.com/watch?v=KduqW6EQ67E')):
                     with ui.row().classes('w-5/12'):
                         ui.image('https://img.youtube.com/vi/KduqW6EQ67E/0.jpg').classes('w-64 h-32')
                     with ui.row().classes('w-6/12'):
                         ui.html('ABB Wizard Easy Programming')
 
-                with ui.row().classes('w-full p-2 rounded items-center').style('background-color: #dbdbdb;'):
+                with ui.row().classes('w-full p-2 rounded items-center').style('background-color: #dbdbdb;').on('click', lambda: ui.open('https://www.youtube.com/watch?v=-3d3wygOSSY')):
                     with ui.row().classes('w-5/12'):
                         ui.image('https://img.youtube.com/vi/-3d3wygOSSY/0.jpg').classes('w-64 h-32')
                     with ui.row().classes('w-6/12'):
                         ui.markdown('The right way to activate lead-through on GoFa Cobot')
 
-                with ui.row().classes('w-full p-2 rounded items-center').style('background-color: #dbdbdb;'):
+                with ui.row().classes('w-full p-2 rounded items-center').style('background-color: #dbdbdb;').on('click', lambda: ui.open('https://www.youtube.com/watch?v=zPnEOQX4jUA')):
                     with ui.row().classes('w-5/12'):
                         ui.image('https://img.youtube.com/vi/zPnEOQX4jUA/0.jpg').classes('w-64 h-32')
                     with ui.row().classes('w-6/12'):
                         ui.markdown('How to program collaborative robot GoFa with Wizard Easy Programming')
 
-                with ui.row().classes('w-full p-2 rounded items-center').style('background-color: #dbdbdb;'):
+                with ui.row().classes('w-full p-2 rounded items-center').style('background-color: #dbdbdb;').on('click', lambda: ui.open('https://www.youtube.com/watch?v=eUgqXsWMmwI')):
                     with ui.row().classes('w-5/12'):
                         ui.image('https://img.youtube.com/vi/eUgqXsWMmwI/0.jpg').classes('w-64 h-32')
                     with ui.row().classes('w-6/12'):
                         ui.markdown('Step-by-step guide on pick and place application with Wizard Easy Programming tool')
 
-                with ui.row().classes('w-full p-2 rounded items-center').style('background-color: #dbdbdb;'):
+                with ui.row().classes('w-full p-2 rounded items-center').style('background-color: #dbdbdb;').on('click', lambda: ui.open('https://www.youtube.com/watch?v=IvTEZgdDUvg')):
                     with ui.row().classes('w-5/12'):
                         ui.image('https://img.youtube.com/vi/IvTEZgdDUvg/0.jpg').classes('w-64 h-32')
                     with ui.row().classes('w-6/12'):

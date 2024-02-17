@@ -41,9 +41,9 @@ async def main():
 
     with ui.row().classes('w-full place-content-center'):
         with ui.row().classes('w-6/12 p-12'):
-            with ui.row().classes('w-full'):
-                ui.html('Request Form').style('font-size: 28px;')
-
+            with ui.row().classes('w-full').style('font-size: 36px; font-weight: bold;'):
+                ui.html('Request Form')
+                
             with ui.row().classes('w-full'):
                 ui.html('Use the form below to define what type of assistance you are looking for:')
 
