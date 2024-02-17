@@ -2,6 +2,8 @@ import uuid
 import chat
 import feedback
 import resources
+import render_video
+import render_document
 from datetime import datetime
 from nicegui import ui
 
@@ -57,4 +59,6 @@ async def main():
 chat.create(requests)
 resources.create()
 feedback.create()
+render_video.create()
+render_document.create()
 ui.run(favicon="H")
