@@ -6,7 +6,7 @@ from datetime import datetime
 from nicegui import ui
 
 ui.header.default_style('background-color: #080808; color: white; font-size: 36px; font-weight: 400;')
-ui.row.default_style('font-size: 22px; font-weight: 400;')
+ui.row.default_style('font-size: 20px; font-weight: 400;')
 
 form_categories = ["I don’t know what I want the robot to do…",\
               "I think I know what I want the robot to do, but I don’t know what to use…",\
@@ -16,8 +16,8 @@ form_categories = ["I don’t know what I want the robot to do…",\
               "I think I know why it didn’t do what I expected, but I don’t know how to check…",\
               "Other"]
 
-participant_id = uuid.uuid4().hex
 requests = {}
+participant_id = uuid.uuid4().hex
 experiment_status = {'participand_id': participant_id, 'is_active': True}
 
 @ui.page('/')
@@ -43,7 +43,7 @@ async def main():
         with ui.row().classes('w-6/12 p-12'):
             with ui.row().classes('w-full').style('font-size: 36px; font-weight: bold;'):
                 ui.html('Request Form')
-                
+
             with ui.row().classes('w-full'):
                 ui.html('Use the form below to define what type of assistance you are looking for:')
 

@@ -4,8 +4,8 @@ from datetime import datetime
 def create(requests):
     @ui.page('/chat/{user_type}/{request_id}')
     async def chat_page(user_type: str, request_id: str):
-        category = requests[request_id]['category']
-        description = requests[request_id]['description'] 
+        category = requests[request_id]['request_category']
+        description = requests[request_id]['request_description'] 
         ui.page_title(description)
         ui.timer(1.0, lambda: chat_message_area.refresh())
 
@@ -29,12 +29,13 @@ def create(requests):
                 with ui.row().classes('w-full'):
                     chat_field = ui.textarea(label='Write a message...').props('rounded outlined clearable').classes(' w-full')
 
-                with ui.row().classes('w-full'):
-                    ui.button(text="Send message", color="blue", on_click=lambda: record_chat_message(chat_field))
-                
-                if user_type == 'participant':
-                    with ui.row().classes('w-full'):
-                        ui.button(text="Close request", color="red", on_click=lambda: record_chat_message(chat_field))
+                with ui.row().classes('w-full place-content-center p-5'):
+                    with ui.row().classes('w-2/12'):
+                        send_button = ui.button(text="Send message", color="blue", on_click=lambda: record_chat_message(chat_field)).classes('full-width')
+                        send_button.on('click', lambda: chat_field.set_value(''))
+                    if user_type == 'participant':
+                        with ui.row().classes('w-2/12'):
+                            ui.button(text="Return to resources", color="gray", on_click=lambda: ui.open('/resources/' + request_id)).style('color: white;').classes('full-width')
 
         with ui.header().classes('place-content-center'):
             ui.html('Chat').style('font-size: 36px; font-weight: 400; color: white;')
