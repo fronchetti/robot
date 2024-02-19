@@ -9,7 +9,6 @@ def create():
             else:
                 ui.notify('Before proceeding, answer the mandatory questions in the feedback form.', type='warning')
 
-
         ui.page_title('Feedback')
         ui.query('body').style('background-color: #f2f2f2;')
 

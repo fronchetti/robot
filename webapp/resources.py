@@ -36,9 +36,6 @@ def create():
                 ui.html('Or refer to the documents below:')
 
                 with ui.row().classes('w-full p-2 rounded items-center place-content-center').style('background-color: #dbdbdb;').on('click', lambda: ui.open('/document/' + request_id + '?document_url=https://search.abb.com/library/Download.aspx?DocumentID=3HAC073766&LanguageCode=en&DocumentPartId=&Action=Launch')):
-                    ui.markdown('Experiment: Task Description')
-
-                with ui.row().classes('w-full p-2 rounded items-center place-content-center').style('background-color: #dbdbdb;').on('click', lambda: ui.open('/document/' + request_id + '?document_url=https://search.abb.com/library/Download.aspx?DocumentID=3HAC073766&LanguageCode=en&DocumentPartId=&Action=Launch')):
                     ui.markdown('Application Manual: Wizard Easy Programming')
 
             with ui.row().classes('w-3/12 p-5').style('background-color: #e8e8e8; border-radius: 16px;'):

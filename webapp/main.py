@@ -24,6 +24,7 @@ experiment_status = {'participand_id': participant_id, 'is_active': True}
 
 @ui.page('/')
 async def main():
+    ui.page_title('Assistance')
     ui.query('body').style('background-color: #f2f2f2;')
 
     def create_request(description, category):
@@ -43,7 +44,7 @@ async def main():
 
 
     with ui.header().classes('place-content-center'):
-        ui.html('Assistance Center')
+        ui.html('Assistance')
 
     with ui.row().classes('w-full place-content-center'):
         with ui.row().classes('w-6/12 p-12'):
@@ -65,4 +66,4 @@ resources.create()
 feedback.create()
 render_video.create()
 render_document.create()
-ui.run(favicon="H")
+ui.run(favicon="@")
