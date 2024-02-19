@@ -27,16 +27,20 @@ async def main():
     ui.query('body').style('background-color: #f2f2f2;')
 
     def create_request(description, category):
-        request_id = uuid.uuid4().hex
-        requests[request_id] = {'request_id': request_id,
-                                'participant_id': participant_id,
-                                'request_description': description,
-                                'request_category': category,
-                                'created_at': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-                                'closed_at': None,
-                                'messages': [],
-                                'interactions': []}
-        ui.open('/resources/' + request_id)
+        if description and category:
+            request_id = uuid.uuid4().hex
+            requests[request_id] = {'request_id': request_id,
+                                    'participant_id': participant_id,
+                                    'request_description': description,
+                                    'request_category': category,
+                                    'created_at': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+                                    'closed_at': None,
+                                    'messages': [],
+                                    'interactions': []}
+            ui.open('/resources/' + request_id)
+        else:
+            ui.notify('Before proceeding, select the type of assistance you need and describe your request in detail.', type='warning')
+
 
     with ui.header().classes('place-content-center'):
         ui.html('Assistance Center')
@@ -50,7 +54,7 @@ async def main():
                 ui.html('Use the form below to define what type of assistance you are looking for:')
 
             with ui.row().classes('w-full'):
-                form_option = ui.radio(form_categories, value = "Other")
+                form_option = ui.radio(form_categories)
                 with ui.row().classes('w-full'):
                     form_text = ui.textarea(label='Describe your request in detail').props('rounded outlined clearable').classes('w-full')
                 with ui.row().classes('w-full place-content-center'):
