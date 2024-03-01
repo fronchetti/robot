@@ -2,7 +2,7 @@ from nicegui import ui
 
 def create():
     @ui.page('/document/{request_id}/')
-    async def render_document(request_id: str, document_url: str):
+    async def document_page(request_id: str, document_url: str):
         ui.page_title('Document')
         ui.query('body').style('background-color: #f2f2f2;')
 

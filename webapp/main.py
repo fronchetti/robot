@@ -1,9 +1,8 @@
-import os
-import json
-import uuid 
 import chat
+import database
 import feedback
 import resources
+import assistance
 import render_video
 import render_document
 from nicegui import ui
@@ -17,67 +16,64 @@ async def main():
     ui.page_title('Experiment')
     ui.query('body').style('background-color: #f2f2f2;')
 
-    def set_experiment_values(participant_id = None, is_active = None):
-        if not os.path.isdir('data'):
-            os.mkdir('data')
-
-        with open('data/experiment_status.json', 'w') as status_file:
-            if participant_id == None:
-                participant_id = uuid.uuid4().hex
-            if is_active == None:
-                is_active = True
-
-            experiment_status = {'participant_id': str(participant_id), 'is_active': is_active}
-            status_file.write(json.dumps(experiment_status))
-
-        return experiment_status
-
-    def get_experiment_status():
-        # If status file does not exist, create one
-        if not os.path.isfile('data/experiment_status.json'):
-            experiment_status = set_experiment_values()
+    def start_experiment(proctor_password):
+        if str(proctor_password).lower() == 'selab':
+            experiment_status = database.set_experiment_status(status=True)
+            ui.open('/assistance/' + experiment_status['participant_id'], new_tab=True)
+            start_experiment_area.refresh()
         else:
-            with open('data/experiment_status.json', 'r') as status_file:
-                experiment_status = json.load(status_file)
+            ui.notify('To start a new experiment, insert your password above.')
+            ui.notify('If you need help, send a message to Felipe at (804) 298-0694 or on Discord at @fronchetti.')
 
-        return experiment_status
+    def resume_experiment(proctor_password, participant_id):
+        if str(proctor_password).lower() == 'selab':
+            ui.open('/assistance/' + participant_id, new_tab=True)
+        else:
+            ui.notify('To resume the experiment, insert your password above.')
+            ui.notify('If you need help, send a message to Felipe at (804) 298-0694 or on Discord at @fronchetti.')
 
-    def close_experiment():
-        experiment_status = get_experiment_status()
-        set_experiment_values(participant_id = experiment_status['participant_id'], is_active = False)
-        start_experiment_area.refresh()
-    
-    def start_experiment():
-        set_experiment_values()
-        start_experiment_area.refresh()
+    def close_experiment(proctor_password, participant_id):
+        if str(proctor_password).lower() == 'selab':
+            database.set_experiment_status(status=False, participant_id=participant_id)
+            start_experiment_area.refresh()
+        else:
+            ui.notify('To end the experiment, insert your password above.')
+            ui.notify('If you need help, send a message to Felipe at (804) 298-0694 or on Discord at @fronchetti.')
 
     @ui.refreshable
     def start_experiment_area():
-        experiment_status = get_experiment_status()    
+        experiment_status = database.get_experiment_status()    
 
         with ui.row().classes('w-full place-content-center'):
-            if experiment_status['is_active']:
+            if experiment_status['status']:
                 with ui.row().classes('w-full place-content-center'):
                     with ui.row().classes('w-6/12 p-12'):
                         ui.html('Status').classes('w-full').style('font-size: 36px; font-weight: bold;')
                         ui.html('There is an experiment in progress. The proctor must resume or end the current experiment.').classes('w-full')
                         ui.html('Participant identifier: ' + experiment_status['participant_id']).classes('w-full')
 
-                        ui.html('Later Checklist').classes('w-full').style('font-size: 36px; font-weight: bold;')
+                        ui.html('Post Checklist').classes('w-full').style('font-size: 36px; font-weight: bold;')
                         ui.html('After the experiment, the proctor must cover the following steps with the participant:').classes('w-full')
-                        ui.checkbox('Open the questionnaire and answer the proctor-related questions. The identifier informed must be the same available above.').classes('w-full')
+                        ui.checkbox('Open the survey and answer the proctor-related questions. The identifier informed must be the same available above.').classes('w-full')
                         ui.checkbox('Once the proctor-related questions are completed, invite the participant to answer the following questions.').classes('w-full')
-                        ui.checkbox('With the questionnaire complete, end the experiment by clicking the "end experiment" button.').classes('w-full')
+                        ui.checkbox('With the survey complete, finish the experiment by clicking the "end experiment" button.').classes('w-full')
 
                         with ui.row().classes('w-full place-content-center'):
                             with ui.row().classes('w-2/12'):
-                                ui.button(text="Resume experiment", color="gray", on_click=lambda: print()).classes('full-width')
+                                password_field = ui.input(label='Proctor Password', password=True)
+
+                        with ui.row().classes('w-full place-content-center'):
+                            with ui.row().classes('w-2/12'):
+                                ui.button(text="Resume experiment", color="gray", on_click=lambda: resume_experiment(password_field.value, experiment_status['participant_id'])).classes('full-width')
 
                             with ui.row().classes('w-2/12'):
-                                ui.button(text="End experiment", color="red", on_click=lambda: close_experiment()).classes('full-width')
+                                ui.button(text="End experiment", color="red", on_click=lambda: close_experiment(password_field.value, experiment_status['participant_id'])).classes('full-width')
             else:
                 with ui.row().classes('w-full place-content-center'):
                     with ui.row().classes('w-6/12 p-12'):
+                        ui.html('Status').classes('w-full').style('font-size: 36px; font-weight: bold;')
+                        ui.html('There is no experiment running at the moment, and a proctor can start a new one.').classes('w-full')
+
                         ui.html('Preliminary Checklist').classes('w-full').style('font-size: 36px; font-weight: bold;')
                         ui.html('Before proceeding with the experiment, the proctor must cover the following steps with the participant:').classes('w-full')
                         ui.checkbox('Play the training videos to the participant in the conference room').classes('w-full')
@@ -91,13 +87,18 @@ async def main():
 
                         with ui.row().classes('w-full place-content-center'):
                             with ui.row().classes('w-2/12'):
-                                ui.button(text="Start experiment", color="green", on_click=lambda: start_experiment()).classes('full-width')
+                                password_field = ui.input(label='Proctor Password', password=True)
+
+                        with ui.row().classes('w-full place-content-center'):
+                            with ui.row().classes('w-2/12'):
+                                ui.button(text="Start experiment", color="green", on_click=lambda: start_experiment(password_field.value)).classes('full-width')
 
     with ui.header().classes('place-content-center'):
         ui.html('Experiment')
 
     start_experiment_area()
 
+assistance.create()
 chat.create(None)
 resources.create()
 feedback.create()

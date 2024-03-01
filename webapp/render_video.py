@@ -2,7 +2,7 @@ from nicegui import ui
 
 def create():
     @ui.page('/video/{request_id}/')
-    async def render_video(request_id: str, video_url: str):
+    async def video_page(request_id: str, video_url: str):
         ui.page_title('Video')
         ui.query('body').style('background-color: #f2f2f2;')
 

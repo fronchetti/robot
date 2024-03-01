@@ -2,7 +2,7 @@ from nicegui import ui
 
 def create():
     @ui.page('/feedback/{request_id}')
-    async def feedback(request_id: str):
+    async def feedback_page(request_id: str):
         def close_request():
             if satisfaction_scale.value and useful_action.value and correct_category.value:
                 ui.open('/')

@@ -1,0 +1,20 @@
+
+data
+--- experiment_status.json
+--- participant_a
+------- about_participant.json
+------- request_a
+------------ about_request.json
+------------ interactions
+------------ messages
+------------ feedback.json
+
+# Experiment Status:
+participant_id: A hex identifier for the latest participant.
+status: A boolean to identify if a experiment is active or not.
+
+# Participant:
+Each participant is represented by a folder inside named with its hex identifier inside the data directory, and contains
+a set of subfolders representing the requests made by the participant, each also represented by a hex identifier.
+
+# Requests 
