@@ -1,10 +1,15 @@
+import database
 from nicegui import ui
 
 def create():
-    @ui.page('/video/{request_id}/')
-    async def video_page(request_id: str, video_url: str):
+    @ui.page('/video/{participant_id}/{request_id}/{interaction_id}/')
+    async def video_page(participant_id: str, request_id: str, interaction_id: str, video_url: str):
         ui.page_title('Video')
         ui.query('body').style('background-color: #f2f2f2;')
+
+        def close_video():
+            database.close_interaction(participant_id, request_id, interaction_id)
+            ui.open('/resources/' + participant_id + '/' + request_id)
 
         with ui.header().classes('place-content-center'):
             ui.html('Video')
@@ -15,4 +20,4 @@ def create():
                         web-share" allowfullscreen></iframe>')
 
             with ui.row().classes('w-2/12'):
-                ui.button(text="Return to resources", color="gray", on_click=lambda: ui.open('/resources/' + request_id)).style('color: white;').classes('full-width')
+                ui.button(text="Return to resources", color="gray", on_click=lambda: close_video()).style('color: white;').classes('full-width')

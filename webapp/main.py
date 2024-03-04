@@ -98,10 +98,14 @@ async def main():
 
     start_experiment_area()
 
+# Main pages
 assistance.create()
-chat.create(None)
 resources.create()
-feedback.create()
+# Resources
+chat.create()
 render_video.create()
 render_document.create()
+# Survey
+feedback.create()
+
 ui.run(favicon="🐔")

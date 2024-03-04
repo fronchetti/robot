@@ -15,9 +15,12 @@ def create():
         ui.page_title('Assistance')
         ui.query('body').style('background-color: #f2f2f2;')
 
-        def request_assistance(description, category):
+        def request_assistance(description, category, custom_category):
             if description and category:
-                request_id = database.create_request(participant_id, description, category)
+                if category == 'Other':
+                    request_id = database.create_request(participant_id, description, custom_category)
+                else:
+                    request_id = database.create_request(participant_id, description, category)
                 ui.open('/resources/' + participant_id + '/' + request_id)
             else:
                 ui.notify('Before proceeding, select the type of assistance you need and describe your request in detail.')
@@ -34,8 +37,12 @@ def create():
                     ui.html('Use the form below to define what type of assistance you are looking for:')
 
                 with ui.row().classes('w-full'):
-                    form_option = ui.radio(form_categories)
+                    form_category = ui.radio(form_categories)
+                    
+                    with ui.row().classes('w-full').bind_visibility_from(form_category, 'value', value='Other'):
+                        custom_category = ui.input(label="Request title")
+
                     with ui.row().classes('w-full'):
-                        form_text = ui.textarea(label='Describe your request in detail').props('rounded outlined clearable').classes('w-full')
+                        form_description = ui.textarea(label='Describe your request in detail').props('rounded outlined clearable').classes('w-full')
                     with ui.row().classes('w-full place-content-center'):
-                        ui.button(text="Request Assistance", color="blue", on_click=lambda: request_assistance(form_text.value, form_option.value)).style('font-size: 16px;')
+                        ui.button(text="Request Assistance", color="blue", on_click=lambda: request_assistance(form_description.value, form_category.value, custom_category.value)).style('font-size: 16px;')

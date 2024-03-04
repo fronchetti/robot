@@ -1,7 +1,6 @@
 import os
 import json
 import uuid 
-from nicegui import ui
 from datetime import datetime
 
 # CRUD Experiment
@@ -51,14 +50,15 @@ def read_last_experiment():
 def create_request(participant_id, description, category):
     request_id = 'request_' + str(uuid.uuid4().hex)
     created_at = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-    update_request(participant_id, request_id, description, category, created_at, None)
+    update_request(participant_id, request_id, description, category, created_at, None, None)
     return request_id
 
-def close_request(participant_id, request_id):
+def close_request(participant_id, request_id, feedback):
     request_data = read_request(participant_id, request_id)
     
     if request_data:
         request_data['closed_at'] = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        request_data['feedback'] = [feedback]
         update_request(**request_data)
     
 def read_request(participant_id, request_id):
@@ -67,7 +67,7 @@ def read_request(participant_id, request_id):
             request_data = json.load(request_file)
             return request_data
 
-def update_request(participant_id, request_id, description, category, created_at, closed_at):
+def update_request(participant_id, request_id, description, category, created_at, closed_at, feedback):
     if not os.path.isdir('data/participants/' + participant_id + '/requests/' + request_id):
         os.makedirs('data/participants/' + participant_id + '/requests/' + request_id)
 
@@ -78,7 +78,8 @@ def update_request(participant_id, request_id, description, category, created_at
                             'description': description,
                             'category': category,
                             'created_at': created_at,
-                            'closed_at': closed_at}
+                            'closed_at': closed_at,
+                            'feedback': feedback}
 
             json_data = json.dumps(request_data)
             request_file.write(json_data)
@@ -116,7 +117,7 @@ def update_interaction(participant_id, request_id, interaction_id, type, content
     if not os.path.isdir('data/participants/' + participant_id + '/requests/' + request_id + '/interactions'):
         os.makedirs('data/participants/' + participant_id + '/requests/' + request_id + '/interactions')
 
-    with open('data/participants/' + participant_id + '/requests/' + request_id + '/interactions/' + 'last_interaction.json', 'w') as last_interaction_file:
+    with open('data/participants/' + participant_id + '/requests/' + request_id + '/' + 'last_interaction.json', 'w') as last_interaction_file:
         with open('data/participants/' + participant_id + '/requests/' + request_id + '/interactions/' + interaction_id + '.json', 'w') as interaction_file:
             request_data = {'interaction_id': interaction_id,
                             'request_id': request_id,
@@ -129,3 +130,9 @@ def update_interaction(participant_id, request_id, interaction_id, type, content
             json_data = json.dumps(request_data)
             interaction_file.write(json_data)
             last_interaction_file.write(json_data)
+
+def read_last_interaction(participant_id, request_id):
+    if os.path.isfile('data/participants/' + participant_id + '/requests/' + request_id + '/' + 'last_interaction.json'):
+        with open('data/participants/' + participant_id + '/requests/' + request_id + '/' + 'last_interaction.json', 'r') as last_interaction_file:
+            request_data = json.load(last_interaction_file)
+            return request_data
