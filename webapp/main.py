@@ -18,8 +18,8 @@ async def main():
 
     def start_experiment(proctor_password):
         if str(proctor_password).lower() == 'selab':
-            experiment_status = database.set_experiment_status(status=True)
-            ui.open('/assistance/' + experiment_status['participant_id'], new_tab=True)
+            participant_id = database.create_experiment()
+            ui.open('/assistance/' + participant_id, new_tab=True)
             start_experiment_area.refresh()
         else:
             ui.notify('To start a new experiment, insert your password above.')
@@ -34,7 +34,7 @@ async def main():
 
     def close_experiment(proctor_password, participant_id):
         if str(proctor_password).lower() == 'selab':
-            database.set_experiment_status(status=False, participant_id=participant_id)
+            database.close_experiment(participant_id=participant_id)
             start_experiment_area.refresh()
         else:
             ui.notify('To end the experiment, insert your password above.')
@@ -42,15 +42,15 @@ async def main():
 
     @ui.refreshable
     def start_experiment_area():
-        experiment_status = database.get_experiment_status()    
+        experiment_data = database.read_last_experiment()    
 
         with ui.row().classes('w-full place-content-center'):
-            if experiment_status['status']:
+            if experiment_data and experiment_data['closed_at'] is None:
                 with ui.row().classes('w-full place-content-center'):
                     with ui.row().classes('w-6/12 p-12'):
                         ui.html('Status').classes('w-full').style('font-size: 36px; font-weight: bold;')
                         ui.html('There is an experiment in progress. The proctor must resume or end the current experiment.').classes('w-full')
-                        ui.html('Participant identifier: ' + experiment_status['participant_id']).classes('w-full')
+                        ui.html('Participant identifier: ' + experiment_data['participant_id']).classes('w-full')
 
                         ui.html('Post Checklist').classes('w-full').style('font-size: 36px; font-weight: bold;')
                         ui.html('After the experiment, the proctor must cover the following steps with the participant:').classes('w-full')
@@ -64,10 +64,10 @@ async def main():
 
                         with ui.row().classes('w-full place-content-center'):
                             with ui.row().classes('w-2/12'):
-                                ui.button(text="Resume experiment", color="gray", on_click=lambda: resume_experiment(password_field.value, experiment_status['participant_id'])).classes('full-width')
+                                ui.button(text="Resume experiment", color="gray", on_click=lambda: resume_experiment(password_field.value, experiment_data['participant_id'])).classes('full-width')
 
                             with ui.row().classes('w-2/12'):
-                                ui.button(text="End experiment", color="red", on_click=lambda: close_experiment(password_field.value, experiment_status['participant_id'])).classes('full-width')
+                                ui.button(text="End experiment", color="red", on_click=lambda: close_experiment(password_field.value, experiment_data['participant_id'])).classes('full-width')
             else:
                 with ui.row().classes('w-full place-content-center'):
                     with ui.row().classes('w-6/12 p-12'):

@@ -1,10 +1,18 @@
+import database
 from nicegui import ui
 
 def create():
-    @ui.page('/resources/{participant_id}')
-    async def resources(participant_id: str):        
+    @ui.page('/resources/{participant_id}/{request_id}')
+    async def resources(participant_id: str, request_id: str):        
         ui.page_title('Resources')
         ui.query('body').style('background-color: #f2f2f2;')
+
+        def close_assistance():
+            database.close_request(participant_id, request_id)
+            ui.open('/feedback/' + participant_id + '/' + request_id)
+        
+        def start_interaction(type, url):
+            return
 
         with ui.header().classes('place-content-center'):
             ui.html('Resources')
@@ -14,7 +22,7 @@ def create():
                 with ui.row().classes('w-full place-content-center'):
                     ui.html('Use the resources below to complete your request. Once you are done, hit the close request button:')
                 with ui.row().classes('w-full place-content-center'):
-                    ui.button('Close request', on_click=lambda: ui.open('/feedback/' + participant_id), color='red').style('font-size: 16px;')
+                    ui.button('Close request', on_click=lambda: close_assistance(), color='red').style('font-size: 16px;')
 
         with ui.row().classes('w-full place-content-center'):
             # Chat

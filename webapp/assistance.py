@@ -1,6 +1,5 @@
-import uuid
+import database
 from nicegui import ui
-from datetime import datetime
 
 form_categories = ["I don’t know what I want the robot to do…",\
               "I think I know what I want the robot to do, but I don’t know what to use…",\
@@ -12,25 +11,16 @@ form_categories = ["I don’t know what I want the robot to do…",\
 
 def create():
     @ui.page('/assistance/{participant_id}')
-    async def assistance_page(participant_id):
+    async def assistance_page(participant_id: str):
         ui.page_title('Assistance')
         ui.query('body').style('background-color: #f2f2f2;')
 
-        def create_request(description, category):
+        def request_assistance(description, category):
             if description and category:
-                request_id = uuid.uuid4().hex
-                requests[request_id] = {'request_id': request_id,
-                                        'participant_id': participant_id,
-                                        'request_description': description,
-                                        'request_category': category,
-                                        'created_at': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-                                        'closed_at': None,
-                                        'messages': [],
-                                        'interactions': []}
-                ui.open('/resources/' + request_id)
+                request_id = database.create_request(participant_id, description, category)
+                ui.open('/resources/' + participant_id + '/' + request_id)
             else:
-                ui.notify('Before proceeding, select the type of assistance you need and describe your request in detail.', type='warning')
-
+                ui.notify('Before proceeding, select the type of assistance you need and describe your request in detail.')
 
         with ui.header().classes('place-content-center'):
             ui.html('Assistance')
@@ -48,4 +38,4 @@ def create():
                     with ui.row().classes('w-full'):
                         form_text = ui.textarea(label='Describe your request in detail').props('rounded outlined clearable').classes('w-full')
                     with ui.row().classes('w-full place-content-center'):
-                        ui.button(text="Request Assistance", color="blue", on_click=lambda: create_request(form_text.value, form_option.value)).style('font-size: 16px;')
+                        ui.button(text="Request Assistance", color="blue", on_click=lambda: request_assistance(form_text.value, form_option.value)).style('font-size: 16px;')

@@ -1,8 +1,8 @@
 from nicegui import ui
 
 def create():
-    @ui.page('/feedback/{request_id}')
-    async def feedback_page(request_id: str):
+    @ui.page('/feedback/{participant_id}/{request_id}')
+    async def feedback_page(participant_id: str, request_id: str):
         def close_request():
             if satisfaction_scale.value and useful_action.value and correct_category.value:
                 ui.open('/')
@@ -43,4 +43,4 @@ def create():
                         ui.button(text="Close request", color="red", on_click=lambda: close_request()).style('color: white;').classes('full-width')
 
                     with ui.row().classes('w-2/12'):
-                        ui.button(text="Return to request", color="gray", on_click=lambda: ui.open('/resources/' + request_id)).style('color: white;').classes('full-width')
+                        ui.button(text="Return to request", color="gray", on_click=lambda: ui.open('/resources/' + participant_id + '/' + request_id)).style('color: white;').classes('full-width')
