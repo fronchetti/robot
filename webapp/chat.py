@@ -41,8 +41,8 @@ def create():
                     send_button = ui.button(text="Send message", color="blue", on_click=lambda: record_participant_message(chat_field)).classes('full-width')
                     send_button.on('click', lambda: chat_field.set_value(''))
 
-                    with ui.row().classes('w-2/12'):
-                        ui.button(text="Return to resources", color="gray", on_click=lambda: close_chat()).style('color: white;').classes('full-width')
+                with ui.row().classes('w-2/12'):
+                    ui.button(text="Return to resources", color="gray", on_click=lambda: close_chat()).style('color: white;').classes('full-width')
 
         with ui.header().classes('place-content-center'):
             ui.html('Chat').style('font-size: 36px; font-weight: 400; color: white;')
