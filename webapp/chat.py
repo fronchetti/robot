@@ -1,8 +1,12 @@
 import database
-from nicegui import ui
+import asyncio
+import custom_chatgpt
+from nicegui import run, ui
 from datetime import datetime
 
 def create():
+    rag_generator = custom_chatgpt.load_chatgpt_settings()
+
     @ui.page('/chat/{participant_id}/{request_id}/{interaction_id}/')
     async def chat_page(participant_id: str, request_id: str, interaction_id: str):
         interaction_data = database.read_interaction(participant_id, request_id, interaction_id)
@@ -15,12 +19,23 @@ def create():
             database.close_interaction(participant_id, request_id, interaction_id)
             ui.open('/resources/' + participant_id + '/' + request_id)
 
-        def record_participant_message(chat_field):
+        def record_participant_message(chat_field: str):
             timestamp = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
             interaction_data['content']['messages'].append({'user_type': 'participant', 'text': chat_field.value, 'timestamp': timestamp})
             database.update_interaction(**interaction_data)
             chat_message_area.refresh()
+
+        async def request_chatgpt_response(question: str) -> str:
+            return rag_generator.generate_response(question)
+
+        async def record_chatgpt_message(chat_field: object):
+            question = chat_field.value
             chat_field.clear()
+            response = await request_chatgpt_response(question)
+            timestamp = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+            interaction_data['content']['messages'].append({'user_type': 'bot', 'text': response, 'timestamp': timestamp})
+            database.update_interaction(**interaction_data)
+            chat_message_area.refresh()
 
         @ui.refreshable
         def chat_message_area():
@@ -39,7 +54,7 @@ def create():
             with ui.row().classes('w-full place-content-center p-5'):
                 with ui.row().classes('w-2/12'):
                     send_button = ui.button(text="Send message", color="blue", on_click=lambda: record_participant_message(chat_field)).classes('full-width')
-                    send_button.on('click', lambda: chat_field.set_value(''))
+                    send_button.on('click', lambda: record_chatgpt_message(chat_field))
 
                 with ui.row().classes('w-2/12'):
                     ui.button(text="Return to resources", color="gray", on_click=lambda: close_chat()).style('color: white;').classes('full-width')
