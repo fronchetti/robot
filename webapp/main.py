@@ -108,4 +108,4 @@ render_document.create()
 # Survey
 feedback.create()
 
-ui.run(favicon="🐔")
+ui.run(favicon="🐔", binding_refresh_interval = 1)
