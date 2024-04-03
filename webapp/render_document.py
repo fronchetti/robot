@@ -1,5 +1,5 @@
 import database
-from nicegui import ui
+from nicegui import ui, app
 
 def create():
     @ui.page('/document/{participant_id}/{request_id}/{interaction_id}/')
@@ -15,7 +15,8 @@ def create():
             ui.html('Document')
         with ui.row().classes('w-full place-content-center'):
             with ui.row().classes('w-full place-content-center'):
-                ui.html('<embed src="' + document_url + '" width="1280" height="720" type="application/pdf">')
+                path = app.add_static_file(local_file=document_url)
+                ui.html(f'<embed src="{path}" width="1280" height="720" type="application/pdf">')
 
             with ui.row().classes('w-2/12'):
                 ui.button(text="Return to resources", color="gray", on_click=lambda: close_document()).style('color: white;').classes('full-width')

@@ -20,6 +20,9 @@ def create():
             elif type == 'chat':
                 interaction_id = database.create_interaction(participant_id, request_id, type, content)
                 ui.open('/chat/' + participant_id + '/' + request_id + '/' + interaction_id)
+            elif type =='website':
+                interaction_id = database.create_interaction(participant_id, request_id, type, content)
+                ui.open(content['url'])
     
         with ui.header().classes('place-content-center'):
             ui.html('Resources')
@@ -52,8 +55,14 @@ def create():
                 ui.image('pendant.jpg').classes('rounded')
                 ui.html('Or refer to the documents below:')
 
-                with ui.row().classes('w-full p-2 rounded items-center place-content-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('text', {'title': 'Application Manual: Wizard Easy Programming', 'url': 'https://search.abb.com/library/Download.aspx?DocumentID=3HAC073766&LanguageCode=en&DocumentPartId=&Action=Launch'})):
-                    ui.markdown('Application Manual: Wizard Easy Programming')
+                with ui.row().classes('w-full p-2 rounded items-center place-content-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('text', {'title': 'Application Manual: Wizard Easy Programming', 'url': 'files/wizard_manual.pdf'})):
+                    ui.markdown('Wizard Easy Programming Tool Manual')
+
+                with ui.row().classes('w-full p-2 rounded items-center place-content-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('text', {'title': 'Experiment Guidelines', 'url': 'files/experiment_guidelines.pdf'})):
+                    ui.markdown('Experiment Guidelines')
+
+                with ui.row().classes('w-full p-2 rounded items-center place-content-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('text', {'title': 'Experiment Guidelines', 'url': 'files/workspace_and_language_description.pdf'})):
+                    ui.markdown('Legend of Robot Workspace and Programming Environment')
 
             # Watch
             with ui.row().classes('w-3/12 p-5').style('background-color: #e8e8e8; border-radius: 16px;'):
@@ -63,6 +72,12 @@ def create():
                 ui.html('Click in one of the videos below to start watching:')
 
                 with ui.scroll_area().style('min-height: 640px;'):
+                    with ui.row().classes('w-full p-2 rounded items-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('website', {'title': 'Wizard Easy Programming – Tutorial Series', 'url': 'https://rise.articulate.com/share/2sJK2Vk1hEknDryF2CeFEYl4Vtf7nFWt#/'})):
+                        with ui.row().classes('w-5/12'):
+                            ui.image('https://img.youtube.com/vi/2l-IKmdcJsM/0.jpg').classes('w-64 h-32 rounded')
+                        with ui.row().classes('w-6/12'):
+                            ui.html('Wizard Easy Programming – Tutorial Series')
+
                     with ui.row().classes('w-full p-2 rounded items-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('video', {'title': 'Wizard Easy Programming – For everyone and all new robots', 'url': 'Kmv5jUI3WF0?si=PfrOJy_FwGxIjnm4'})):
                         with ui.row().classes('w-5/12'):
                             ui.image('https://img.youtube.com/vi/Kmv5jUI3WF0/0.jpg').classes('w-64 h-32 rounded')
@@ -75,26 +90,8 @@ def create():
                         with ui.row().classes('w-6/12'):
                             ui.markdown('How to program collaborative robot GoFa with Wizard Easy Programming - Tutorial for beginners')
 
-                    with ui.row().classes('w-full p-2 rounded items-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('video', {'title': 'How to jog collaborative robot GoFa - Tutorial for beginners', 'url': 'P-HcWE9LMjM?si=HcWE9LMjM'})):
-                        with ui.row().classes('w-5/12'):
-                            ui.image('https://img.youtube.com/vi/P-HcWE9LMjM/0.jpg').classes('w-64 h-32 rounded')
-                        with ui.row().classes('w-6/12'):
-                            ui.html('How to jog collaborative robot GoFa - Tutorial for beginners')
-
-                    with ui.row().classes('w-full p-2 rounded items-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('video', {'title': 'The right way to activate lead-through on GoFa Cobot', 'url': '-3d3wygOSSY?si=HcWE9LMjM'})):
-                        with ui.row().classes('w-5/12'):
-                            ui.image('https://img.youtube.com/vi/-3d3wygOSSY/0.jpg').classes('w-64 h-32 rounded')
-                        with ui.row().classes('w-6/12'):
-                            ui.markdown('The right way to activate lead-through on GoFa Cobot')
-
                     with ui.row().classes('w-full p-2 rounded items-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('video', {'title': 'Step-by-step guide on pick and place application with Wizard Easy Programming tool', 'url': 'eUgqXsWMmwI?si=HcWE9LMjM'})):
                         with ui.row().classes('w-5/12'):
                             ui.image('https://img.youtube.com/vi/eUgqXsWMmwI/0.jpg').classes('w-64 h-32 rounded')
                         with ui.row().classes('w-6/12'):
                             ui.markdown('Step-by-step guide on pick and place application with Wizard Easy Programming tool')
-
-                    with ui.row().classes('w-full p-2 rounded items-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('video', {'title': 'GoFa™ CRB 15000 - Using ASI in Auto mode', 'url': 'IvTEZgdDUvg?si=HcWE9LMjM'})):
-                        with ui.row().classes('w-5/12'):
-                            ui.image('https://img.youtube.com/vi/IvTEZgdDUvg/0.jpg').classes('w-64 h-32 rounded')
-                        with ui.row().classes('w-6/12'):
-                            ui.markdown('GoFa™ CRB 15000 - Using ASI in Auto mode')

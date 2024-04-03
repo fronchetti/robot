@@ -5,6 +5,7 @@ import resources
 import assistance
 import render_video
 import render_document
+import render_website
 from nicegui import ui
 
 ui.header.default_style('background-color: #080808; color: white; font-size: 36px; font-weight: 400;')
@@ -105,6 +106,7 @@ resources.create()
 chat.create()
 render_video.create()
 render_document.create()
+render_website.create()
 # Survey
 feedback.create()
 
