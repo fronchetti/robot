@@ -52,7 +52,7 @@ def create():
                     ui.html('Read')
 
                 ui.html('On the teaching pendant, click on the Help (?) button and select the Manual option to access the documentation:')
-                ui.image('pendant.jpg').classes('rounded')
+                ui.image('files/pendant.jpg').classes('rounded')
                 ui.html('Or refer to the documents below:')
 
                 with ui.row().classes('w-full p-2 rounded items-center place-content-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('text', {'title': 'Application Manual: Wizard Easy Programming', 'url': 'files/wizard_manual.pdf'})):
