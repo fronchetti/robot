@@ -43,7 +43,7 @@ def create():
             messages_section = ui.row().classes('w-full p-10').style('background-color: #f2f2f2; border-radius: 16px;')
 
             with messages_section:
-                ui.chat_message(name='Request System', text='Please wait a moment while we connect you with an expert...<br><br><b>Request category:</b> ' + request_data['category'] + '<br><b>Request description:</b> ' + request_data['description'], sent=False, text_html=True).classes('w-full')
+                ui.chat_message(name='Request System', text='Please wait a moment while the expert review your request...<br><br><b>Request category:</b> ' + request_data['category'] + '<br><b>Request description:</b> ' + request_data['description'], sent=False, text_html=True).classes('w-full')
 
                 interaction_data = database.read_interaction(participant_id, request_id, interaction_id)
 
@@ -68,6 +68,8 @@ def create():
         with ui.header().classes('place-content-center'):
             ui.html('Chat').style('font-size: 36px; font-weight: 400; color: white;')
 
+        ui.html("Warning: You are connected with Isaac, an expert hired to assist you with the Wizard Easy Programming Tool. He will reply to your messages in seconds.\
+                If the chat room does not work for you, ask a proctor for clarification.")
         chat_message_area()
         chat_input_area()
         await record_chatgpt_message('First, introduce yourself. Second, help me with the request:' + request_data['description'])

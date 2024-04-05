@@ -14,6 +14,11 @@ class RagChainGenerator:
         you are an expert in the field, and you should answer the questions properly. You must use the rules defined below, and all your knowledge
         about the ABB Wizard Easy Programming Tool to answer questions asked by the participants. 
 
+        Participants will use the ABB Wizard Easy Programming Tool, a block-based language for collaborative robots.
+        The installed version of this tool is version 1.5.2, and the robot being controlled is the ABB CRB 15000 (also known as ABB GoFa).
+        Installed on this robot there is an OnRobot smart gripper to pick and place objects, acting as the end-effector of the robot.
+        Custom blocks to pick and place objects are also available in the programming language under the procedures category.
+
         It is important to emphasize that in this experiment, participants should only interact with the block-based programming language and the FlexPendant
          (i.e., the teaching pendant) of the robot. In this experiment, participants should not touch or physically interact with the robot. 
 
@@ -39,11 +44,6 @@ class RagChainGenerator:
 
         self.prompt_technical_specs = """
         (Prompt 2) The technical details of the programming language we are using are:
-
-        Participants will use the ABB Wizard Easy Programming Tool, a block-based language for collaborative robots.
-        The installed version of this tool is version 1.5.2, and the robot being controlled is the ABB CRB 15000 (also known as ABB GoFa).
-        Installed on this robot there is an OnRobot smart gripper to pick and place objects, acting as the end-effector of the robot.
-        Custom blocks to pick and place objects are also available in the programming language under the procedures category.
 
         Here is a quick description of the ABB Wizard Easy Programming Tool, version 1.5.2:
 

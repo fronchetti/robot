@@ -30,22 +30,20 @@ def create():
         with ui.row().classes('w-full place-content-center'):
             with ui.row().classes('w-6/12 p-5').style('background-color: #e8e8e8; border-radius: 16px;'):
                 with ui.row().classes('w-full place-content-center'):
-                    ui.html('Use the resources below to complete your request. Once you are done, hit the close request button:')
+                    with ui.row().classes('w-5/12'):
+                        with ui.row().classes('w-full p-2 rounded items-center place-content-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('text', {'title': 'Experiment Guidelines', 'url': 'files/experiment_guidelines.pdf'})):
+                            ui.markdown('Experiment Guidelines')
+
+                    with ui.row().classes('w-5/12'):
+                        with ui.row().classes('w-full p-2 rounded items-center place-content-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('text', {'title': 'Workspace Map', 'url': 'files/workspace_map.pdf'})):
+                            ui.markdown('Workspace Map')
+
+                with ui.row().classes('w-full place-content-center'):
+                    ui.html('Use the resources below to complete your request. Once you are done with your request, hit the close request button below:')
                 with ui.row().classes('w-full place-content-center'):
                     ui.button('Close request', on_click=lambda: close_assistance(), color='red').style('font-size: 16px;')
 
         with ui.row().classes('w-full place-content-center'):
-            # Chat
-            with ui.row().classes('w-3/12 p-5').style('background-color: #e8e8e8; border-radius: 16px;'):
-                with ui.row().classes('w-full').style('font-size: 36px; font-weight: bold;'):
-                    ui.html('Chat')
-
-                with ui.row().classes('w-full'):
-                    ui.html('Start a conversation with an expert by clicking the button:')
-                
-                with ui.row().classes('w-full'):
-                    ui.button('Start conversation', on_click=lambda: register_interaction('chat', {'messages': []}), color='gray').classes('full-width').style('font-size: 16px; color: white;')
-
             # Read                
             with ui.row().classes('w-3/12 p-5').style('background-color: #e8e8e8; border-radius: 16px;'):
                 with ui.row().classes('w-full').style('font-size: 36px; font-weight: bold;'):
@@ -55,14 +53,11 @@ def create():
                 ui.image('files/pendant.jpg').classes('rounded')
                 ui.html('Or refer to the documents below:')
 
-                with ui.row().classes('w-full p-2 rounded items-center place-content-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('text', {'title': 'Application Manual: Wizard Easy Programming', 'url': 'files/wizard_manual.pdf'})):
-                    ui.markdown('Wizard Easy Programming Tool Manual')
+                with ui.row().classes('w-full p-2 rounded items-center place-content-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('text', {'title': 'Application Manual of the Wizard Easy Programming Tool', 'url': 'files/wizard_manual.pdf'})):
+                    ui.markdown('Application Manual of the Wizard Easy Programming Tool')
 
-                with ui.row().classes('w-full p-2 rounded items-center place-content-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('text', {'title': 'Experiment Guidelines', 'url': 'files/experiment_guidelines.pdf'})):
-                    ui.markdown('Experiment Guidelines')
-
-                with ui.row().classes('w-full p-2 rounded items-center place-content-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('text', {'title': 'Experiment Guidelines', 'url': 'files/workspace_and_language_description.pdf'})):
-                    ui.markdown('Legend of Robot Workspace and Programming Environment')
+                with ui.row().classes('w-full p-2 rounded items-center place-content-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('text', {'title': 'Quickstart Guide for the Wizard Easy Programming Tool', 'url': 'files/wizard_easy_programming_quickstart_guide.pdf'})):
+                    ui.markdown('Quickstart Guide for the Wizard Easy Programming Tool')
 
             # Watch
             with ui.row().classes('w-3/12 p-5').style('background-color: #e8e8e8; border-radius: 16px;'):
@@ -72,12 +67,6 @@ def create():
                 ui.html('Click in one of the videos below to start watching:')
 
                 with ui.scroll_area().style('min-height: 640px;'):
-                    with ui.row().classes('w-full p-2 rounded items-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('website', {'title': 'Wizard Easy Programming – Tutorial Series', 'url': 'https://rise.articulate.com/share/2sJK2Vk1hEknDryF2CeFEYl4Vtf7nFWt#/'})):
-                        with ui.row().classes('w-5/12'):
-                            ui.image('https://img.youtube.com/vi/2l-IKmdcJsM/0.jpg').classes('w-64 h-32 rounded')
-                        with ui.row().classes('w-6/12'):
-                            ui.html('Wizard Easy Programming – Tutorial Series')
-
                     with ui.row().classes('w-full p-2 rounded items-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('video', {'title': 'Wizard Easy Programming – For everyone and all new robots', 'url': 'Kmv5jUI3WF0?si=PfrOJy_FwGxIjnm4'})):
                         with ui.row().classes('w-5/12'):
                             ui.image('https://img.youtube.com/vi/Kmv5jUI3WF0/0.jpg').classes('w-64 h-32 rounded')
@@ -95,3 +84,33 @@ def create():
                             ui.image('https://img.youtube.com/vi/eUgqXsWMmwI/0.jpg').classes('w-64 h-32 rounded')
                         with ui.row().classes('w-6/12'):
                             ui.markdown('Step-by-step guide on pick and place application with Wizard Easy Programming tool')
+
+                    with ui.row().classes('w-full p-2 rounded items-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('video', {'title': 'Wizard Easy Programming – Advanced Application Overview', 'url': 'CVfQJoM8KsY?si=-VV6kv1weIZ3USNJ'})):
+                        with ui.row().classes('w-5/12'):
+                            ui.image('https://img.youtube.com/vi/CVfQJoM8KsY/0.jpg').classes('w-64 h-32 rounded')
+                        with ui.row().classes('w-6/12'):
+                            ui.markdown('Wizard Easy Programming – Advanced Application Overview')
+
+                    with ui.row().classes('w-full p-2 rounded items-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('video', {'title': 'Webinar | ABB Wizard easy programming for single arm YuMi', 'url': 'OKlcUcLMHQM?si=yFjYTOL1DkZdBHBq'})):
+                        with ui.row().classes('w-5/12'):
+                            ui.image('https://img.youtube.com/vi/OKlcUcLMHQM/3.jpg').classes('w-64 h-32 rounded')
+                        with ui.row().classes('w-6/12'):
+                            ui.markdown('Webinar | ABB Wizard easy programming for single arm YuMi')
+
+                    with ui.row().classes('w-full p-2 rounded items-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('video', {'title': 'Using Wizard to create a PCB assembly application in minutes', 'url': 'nj0X8fLj1SE?si=zy6EUfKFbhIJOa_6'})):
+                        with ui.row().classes('w-5/12'):
+                            ui.image('https://img.youtube.com/vi/nj0X8fLj1SE/2.jpg').classes('w-64 h-32 rounded')
+                        with ui.row().classes('w-6/12'):
+                            ui.markdown('Using Wizard to create a PCB assembly application in minutes')
+
+            # Chat
+            with ui.row().classes('w-3/12 p-5').style('background-color: #e8e8e8; border-radius: 16px;'):
+                with ui.row().classes('w-full').style('font-size: 36px; font-weight: bold;'):
+                    ui.html('Chat')
+
+                with ui.row().classes('w-full'):
+                    ui.chat_message("Hi, my name is Isaac! I am here to help you.")
+                    ui.html('Start a conversation with the expert by clicking the button below:')
+                
+                with ui.row().classes('w-full'):
+                    ui.button('Start conversation', on_click=lambda: register_interaction('chat', {'messages': []}), color='gray').classes('full-width').style('font-size: 16px; color: white;')
