@@ -5,7 +5,7 @@ from datetime import datetime
 
 # CRUD Experiment
 def create_experiment():
-    participant_id = 'participant_' + str(uuid.uuid4().hex)
+    participant_id = datetime.now().strftime("p%m%d%H%M")
     created_at = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     experiment_data = update_experiment(participant_id, created_at, None)
     return participant_id

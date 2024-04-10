@@ -51,13 +51,16 @@ async def main():
                     with ui.row().classes('w-6/12 p-12'):
                         ui.html('Status').classes('w-full').style('font-size: 36px; font-weight: bold;')
                         ui.html('There is an experiment in progress. The proctor must resume or end the current experiment.').classes('w-full')
-                        ui.html('Participant identifier: ' + experiment_data['participant_id']).classes('w-full')
+                        ui.html('<b>Participant number:</b> ' + experiment_data['participant_id']).classes('w-full')
 
                         ui.html('Post Checklist').classes('w-full').style('font-size: 36px; font-weight: bold;')
-                        ui.html('After the experiment, the proctor must cover the following steps with the participant:').classes('w-full')
-                        ui.checkbox('Open the survey and answer the proctor-related questions. The identifier informed must be the same available above.').classes('w-full')
-                        ui.checkbox('Once the proctor-related questions are completed, invite the participant to answer the following questions.').classes('w-full')
-                        ui.checkbox('With the survey complete, finish the experiment by clicking the "end experiment" button.').classes('w-full')
+                        ui.html('After the experiment, the proctor must follow the steps below:').classes('w-full')
+                        ui.checkbox('Save the program made by the participant on the FlexPendant. The filename must be the participant number defined above.')
+                        ui.checkbox('Open the survey and answer the proctor-related questions.').classes('w-full')
+                        ui.checkbox('Once the proctor-related questions are completed, invite the participant to answer the survey.').classes('w-full')
+                        ui.checkbox('Once the participant completes the survey, finish the experiment by clicking the "end experiment" button below.').classes('w-full')
+
+                        ui.html('<b><a href="https://forms.gle/sLsJWrvNaHjnqkHY6", style="color: red" target="_blank">Click here to open the survey</a></b>')
 
                         with ui.row().classes('w-full place-content-center'):
                             with ui.row().classes('w-2/12'):
@@ -76,15 +79,17 @@ async def main():
                         ui.html('There is no experiment running at the moment, and a proctor can start a new one.').classes('w-full')
 
                         ui.html('Preliminary Checklist').classes('w-full').style('font-size: 36px; font-weight: bold;')
-                        ui.html('Before proceeding with the experiment, the proctor must cover the following steps with the participant:').classes('w-full')
-                        ui.checkbox('Play the training videos to the participant in the conference room').classes('w-full')
-                        ui.checkbox('Bring and introduce participant to the experiment area').classes('w-full')
-                        ui.checkbox('Introduce praticipant to the robot and teaching pendant').classes('w-full')
-                        ui.checkbox('Emphasize the task and the expected result').classes('w-full')
-                        ui.checkbox('Emphasize the programming language').classes('w-full')
-                        ui.checkbox('Emphasize the resource center in the programming language').classes('w-full')
-                        ui.checkbox('Bring and introduce participant to the help desk').classes('w-full')
-                        ui.checkbox('Start the experiment').classes('w-full')
+                        ui.html('Before proceeding with the experiment, the proctor must cover the steps below with the participant:').classes('w-full')
+                        ui.checkbox('Open the starting program in the Wizard Easy Programming Tool on the FlexPendant.').classes('w-full')
+                        ui.checkbox('Log in the desktop computer with your VCU credentials and open this website on the participants page. Make sure the desktop application is always available for the participant to use.').classes('w-full')
+                        ui.checkbox('Confirm if the robot is in auto mode, with motors on and with speed at 15%.').classes('w-full')
+                        ui.checkbox('Confirm if the coffee cans are randomly organized between the two dispensers.').classes('w-full')
+                        ui.checkbox('Bring and introduce participant to the experiment area.').classes('w-full')
+                        ui.checkbox('Read the experiment guidelines out loud to the participant.').classes('w-full')
+                        ui.checkbox('Provide a printed copy of the experiment guidelines and the workspace map to the participant.').classes('w-full')
+                        ui.checkbox('Start the experiment.').classes('w-full')
+                        ui.html('<p style="color:red">Never give the participant hints about the solution of the experiment. You should only clarify questions about the information available in the experiment guidelines.</p>')
+                        ui.html('<p style="color:red">You should only help the participant with the robot if the robot is not working for a reason not related to the programming language (e.g., mechanical failure, operating system failure).</p>')
 
                         with ui.row().classes('w-full place-content-center'):
                             with ui.row().classes('w-2/12'):

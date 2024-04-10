@@ -73,6 +73,12 @@ def create():
                         with ui.row().classes('w-6/12'):
                             ui.html('Wizard Easy Programming – For everyone and all new robots')
 
+                    with ui.row().classes('w-full p-2 rounded items-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('video', {'title': 'Quickstart Guide: Wizard Easy Programming', 'url': '2y1DmG-57JA?si=jl2-mcvFi36F9aO0'})):
+                        with ui.row().classes('w-5/12'):
+                            ui.image('https://img.youtube.com/vi/2y1DmG-57JA/0.jpg').classes('w-64 h-32 rounded')
+                        with ui.row().classes('w-6/12'):
+                            ui.html('Quickstart Guide: Wizard Easy Programming')
+
                     with ui.row().classes('w-full p-2 rounded items-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('video', {'title': 'How to program collaborative robot GoFa with Wizard Easy Programming - Tutorial for beginners', 'url': 'zPnEOQX4jUA?si=PfrOJy_FwGxIjnm4'})):
                         with ui.row().classes('w-5/12'):
                             ui.image('https://img.youtube.com/vi/zPnEOQX4jUA/0.jpg').classes('w-64 h-32 rounded')

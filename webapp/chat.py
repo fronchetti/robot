@@ -69,7 +69,7 @@ def create():
             ui.html('Chat').style('font-size: 36px; font-weight: 400; color: white;')
 
         ui.html("Warning: You are connected with Isaac, an expert hired to assist you with the Wizard Easy Programming Tool. He will reply to your messages in seconds.\
-                If the chat room does not work for you, ask a proctor for clarification.")
+                If he does not reply after a few seconds, ask a proctor for clarification.")
         chat_message_area()
         chat_input_area()
         await record_chatgpt_message('First, introduce yourself. Second, help me with the request:' + request_data['description'])
