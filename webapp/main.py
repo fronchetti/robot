@@ -55,12 +55,12 @@ async def main():
 
                         ui.html('Post Checklist').classes('w-full').style('font-size: 36px; font-weight: bold;')
                         ui.html('After the experiment, the proctor must follow the steps below:').classes('w-full')
-                        ui.checkbox('Save the program made by the participant on the FlexPendant. The filename must be the participant number defined above.')
+                        ui.checkbox('Save the program made by the participant on the FlexPendant (Files > Save As). The filename must be the participant number defined above.')
                         ui.checkbox('Open the survey and answer the proctor-related questions.').classes('w-full')
                         ui.checkbox('Once the proctor-related questions are completed, invite the participant to answer the survey.').classes('w-full')
                         ui.checkbox('Once the participant completes the survey, finish the experiment by clicking the "end experiment" button below.').classes('w-full')
 
-                        ui.html('<b><a href="https://forms.gle/sLsJWrvNaHjnqkHY6", style="color: red" target="_blank">Click here to open the survey</a></b>')
+                        ui.html('<b><a href="https://forms.gle/ZJLo9rMYEC6fqj7W8", style="color: red" target="_blank">Click here to open the survey</a></b>')
 
                         with ui.row().classes('w-full place-content-center'):
                             with ui.row().classes('w-2/12'):
