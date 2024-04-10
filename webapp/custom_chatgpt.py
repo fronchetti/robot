@@ -71,11 +71,10 @@ class RagChainGenerator:
 
         - Procedures: Blocks under the Procedures category are used to define and call custom functions made by the developer in their program solution.
 
-        There is only one default block available in the Procedures category: “Call <procedure>”.
-        However, there is also an “Add Procedure” button inside this category for developers to
-        define new procedures and three pre-defined procedures to open, close, and restart the gripper,
-        named OpenGripper, CloseGripper, and StartGripper. The StartGripper procedure is used to
-        activate the gripper prior to program execution.
+      There is only one default block available in the Procedures category: “Call <procedure>”. However, there is also an “Add Procedure” button inside
+      this category for developers to define new procedures. Three customized procedures are also available to open, close, and restart the robotic gripper,
+      named respectively as OpenGripper, CloseGripper, and RestartGripper. The RestartGripper procedure should be used only to restart
+      the gripper if an error occurs with the gripper.
 
         - Loops: Blocks under the Loops category define loops in the program execution. 
 
