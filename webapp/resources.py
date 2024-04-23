@@ -3,13 +3,13 @@ from nicegui import ui
 
 def create():
     @ui.page('/resources/{participant_id}/{request_id}')
-    async def resources(participant_id: str, request_id: str):        
+    async def resources(participant_id: str, request_id: str):
         ui.page_title('Resources')
         ui.query('body').style('background-color: #f2f2f2;')
 
         def close_assistance():
             ui.open('/feedback/' + participant_id + '/' + request_id)
-        
+
         def register_interaction(type, content):
             if type == 'text':
                 interaction_id = database.create_interaction(participant_id, request_id, type, content)
@@ -23,7 +23,7 @@ def create():
             elif type =='website':
                 interaction_id = database.create_interaction(participant_id, request_id, type, content)
                 ui.open(content['url'])
-    
+
         with ui.header().classes('place-content-center'):
             ui.html('Resources')
 
@@ -31,11 +31,11 @@ def create():
             with ui.row().classes('w-6/12 p-5').style('background-color: #e8e8e8; border-radius: 16px;'):
                 with ui.row().classes('w-full place-content-center'):
                     with ui.row().classes('w-5/12'):
-                        with ui.row().classes('w-full p-2 rounded items-center place-content-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('text', {'title': 'Experiment Guidelines', 'url': 'files/experiment_guidelines.pdf'})):
+                        with ui.row().classes('w-full p-2 rounded items-center place-content-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('text', {'title': 'Experiment Guidelines', 'url': '/root/robot/webapp/files/experiment_guidelines.pdf'})):
                             ui.markdown('Experiment Guidelines')
 
                     with ui.row().classes('w-5/12'):
-                        with ui.row().classes('w-full p-2 rounded items-center place-content-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('text', {'title': 'Workspace Map', 'url': 'files/workspace_map.pdf'})):
+                        with ui.row().classes('w-full p-2 rounded items-center place-content-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('text', {'title': 'Workspace Map', 'url': '/root/robot/webapp/files/workspace_map.pdf'})):
                             ui.markdown('Workspace Map')
 
                 with ui.row().classes('w-full place-content-center'):
@@ -44,19 +44,19 @@ def create():
                     ui.button('Close request', on_click=lambda: close_assistance(), color='red').style('font-size: 16px;')
 
         with ui.row().classes('w-full place-content-center'):
-            # Read                
+            # Read
             with ui.row().classes('w-3/12 p-5').style('background-color: #e8e8e8; border-radius: 16px;'):
                 with ui.row().classes('w-full').style('font-size: 36px; font-weight: bold;'):
                     ui.html('Read')
 
                 ui.html('On the teaching pendant, click on the Help (?) button and select the Manual option to access the documentation:')
-                ui.image('files/pendant.jpg').classes('rounded')
+                ui.image('/root/robot/webapp/files/pendant.jpg').classes('rounded')
                 ui.html('Or refer to the documents below:')
 
-                with ui.row().classes('w-full p-2 rounded items-center place-content-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('text', {'title': 'Application Manual of the Wizard Easy Programming Tool', 'url': 'files/wizard_manual.pdf'})):
+                with ui.row().classes('w-full p-2 rounded items-center place-content-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('text', {'title': 'Application Manual of the Wizard Easy Programming Tool', 'url': '/root/robot/webapp/files/wizard_manual.pdf'})):
                     ui.markdown('Application Manual of the Wizard Easy Programming Tool')
 
-                with ui.row().classes('w-full p-2 rounded items-center place-content-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('text', {'title': 'Quickstart Guide for the Wizard Easy Programming Tool', 'url': 'files/wizard_easy_programming_quickstart_guide.pdf'})):
+                with ui.row().classes('w-full p-2 rounded items-center place-content-center').style('background-color: #dbdbdb;').on('click', lambda: register_interaction('text', {'title': 'Quickstart Guide for the Wizard Easy Programming Tool', 'url': '/root/robot/webapp/files/wizard_easy_programming_quickstart_guide.pdf'})):
                     ui.markdown('Quickstart Guide for the Wizard Easy Programming Tool')
 
             # Watch
@@ -117,6 +117,6 @@ def create():
                 with ui.row().classes('w-full'):
                     ui.chat_message("Hi, my name is Isaac! I am here to help you.")
                     ui.html('Start a conversation with the expert by clicking the button below:')
-                
+
                 with ui.row().classes('w-full'):
                     ui.button('Start conversation', on_click=lambda: register_interaction('chat', {'messages': []}), color='gray').classes('full-width').style('font-size: 16px; color: white;')

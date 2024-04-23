@@ -115,4 +115,4 @@ render_website.create()
 # Survey
 feedback.create()
 
-ui.run(favicon="🐔", binding_refresh_interval = 1)
+ui.run(favicon="🐔", binding_refresh_interval =1, port=80)
