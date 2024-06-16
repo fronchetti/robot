@@ -95,7 +95,7 @@ for subfolder in subfolders:
     about_file_content['total_interactions'] = total_interactions
     experiment_df.loc[len(experiment_df.index)] = about_file_content
 
-with pandas.ExcelWriter("C:\\Users\\conso\\OneDrive\\Documents\\GitHub\\robot-barriers\\data\\interactions_summary.xlsx") as writer:
+with pandas.ExcelWriter("C:\\Users\\conso\\OneDrive\\Documents\\GitHub\\robot-barriers\\data\\interactions_summary_new.xlsx") as writer:
     experiment_df.to_excel(writer, sheet_name="Experiments", index=False)
     request_df.to_excel(writer, sheet_name="Requests", index=False)
     interaction_df.to_excel(writer, sheet_name="Interactions", index=False)
